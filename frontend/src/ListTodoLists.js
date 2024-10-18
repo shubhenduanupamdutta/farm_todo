@@ -35,7 +35,7 @@ function ListToDoLists({
       <div className="box">
         <label>
           New To-Do List:&nbsp;
-          <input ref={labelRef} type="text" />
+          <input id={labelRef} type="text" />
         </label>
         <button onClick={() => handleNewToDoList(document.getElementById(labelRef).value)}>
           New

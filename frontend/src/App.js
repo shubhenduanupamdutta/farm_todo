@@ -18,7 +18,7 @@ function App() {
     setListSummaries(data);
   }
 
-  function handleNewToDoList() {
+  function handleNewToDoList(newName) {
     const updateData = async () => {
       const newListData = {
         name: newName,

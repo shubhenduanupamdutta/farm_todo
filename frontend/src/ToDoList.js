@@ -19,7 +19,7 @@ function ToDoList({ listId, handleBackButton }) {
 
   function handleCreateItem(label) {
     const updateData = async () => {
-      const response = await axios.post(`/api/lists/${listData.id}/items/`, {
+      const response = await axios.post(`/api/lists/${listData.id}/items`, {
         label: label,
       });
 
