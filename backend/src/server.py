@@ -83,6 +83,32 @@ async def delete_list(list_id: str) -> dict[str, bool]:
     return {"success": await app.todo_dal.delete_todo_list(list_id)}
 
 
+class NewItem(BaseModel):
+    label: str
+
+
+class NewItemResponse(BaseModel):
+    id: str
+    label: str
+
+
+@app.post("/api/lists/{list_id}/items", status_code=status.HTTP_201_CREATED)
+async def create_todo_item(list_id: str, new_item: NewItem) -> ToDoList:
+    item = await app.todo_dal.create_item(list_id, new_item.label)
+    if item is None:
+        raise HTTPException(status_code=404, detail="List not found")
+    return item
+
+
+@app.delete("/api/lists/{list_id}/items/{item_id}")
+async def delete_item(list_id: str, item_id: str) -> ToDoList:
+    """Delete a single to-do item by its ID."""
+    todo_list = await app.todo_dal.delete_item(list_id, item_id)
+    if todo_list is None:
+        raise HTTPException(status_code=404, detail="Item not found")
+    return todo_list
+
+
 class ToDoItemUpdate(BaseModel):
     item_id: str
     checked_state: bool
